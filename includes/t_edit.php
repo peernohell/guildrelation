@@ -8,7 +8,11 @@ function template_edit ($user, $guild = null) {
 	<?php 
 	if (is_null($guild)) {
 		echo "Ajouter une relation";
-		$guild = array();
+		$guild = array(
+			'name' => '',
+			'relation' => 0,
+			'comment' => '',
+		);
 	} else {  
 		echo "Relation avec la guilde " . $guild['name'];
 	} ?>
