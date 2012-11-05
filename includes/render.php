@@ -33,6 +33,7 @@ class Render {
 	private static function start_layout () {
 		return "<html>
 	<head><title>Ryzom - outil de relation de guilde </title><head>
+	<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'>
 	<style type='text/css'>body {background-color: #AAA;}</style>
 <body bgcolor='#00000000'>";
 	}

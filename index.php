@@ -38,7 +38,7 @@ switch ($do) {
 	case 'remove':
 		$message = null;
 		if (isset($_POST['guild_name']) && isset($guild_info[$_POST['guild_name']])) {
-			Action::remove($user_info, &$guild_info, $_POST['guild_name']);
+			Action::remove($user_info, $guild_info, $_POST['guild_name']);
 		} else {
 			$message = 'supression, impossible guilde non trouvee';
 		}
