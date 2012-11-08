@@ -33,6 +33,14 @@ function guild_action ($name) {
 	);
 }
 
+function filter_guild (&$guilds, $filter) {
+	foreach ($guilds as $name => $info) {
+		if (stripos($name, $filter) === false && stripos($guilds[$name]['comment'], $filter) === false) {
+				unset($guilds[$name]);
+		}
+	}
+}
+
 function guild ($guild, $odd) {
 	$relations = array(-1 => 'ennemie', 0 => 'neutre', 1 => 'alli&eacute;');
 	if ($guild['relation'] < -1 || $guild['relation'] > 1) {
@@ -55,6 +63,7 @@ function guild ($guild, $odd) {
 }
 
 function template_list ($user, $guilds, $message = null) {
+	global $_POST;
 	$c = "<h1>Relation de la guilde <b>" . $user['guild_name'] . "</b></h1>"
 	. "Bienvenue ". $user['char_name'];
 	if (!is_null($message)) {
@@ -65,11 +74,19 @@ function template_list ($user, $guilds, $message = null) {
 	. "  <input type='hidden' name='do' value='create' />"
 	. "  <input type='submit' value='Ajouter une relation' />"
 	. "</form>"
+	. "<form action='index.php' method='POST'>"
+	. "  <input type='text' name='search' value='". (isset($_POST['search']) ? $_POST['search'] : '') . "' />"
+	. "  <input type='submit' value='Rechercher' />"
+	. "</form>"
 	. "<table border=1>"
 	. "<tr><td widtd='200px'>Nom"
 	. "</td><td width='400px'>commentaire"
 	. "</td><td width='120px'>action"
 	. "</td></tr>";
+
+	// filter guilds
+	if (isset($_POST['search']) && $_POST['search'] !== '')
+		filter_guild($guilds, $_POST['search']);
 
 	// sort guilds.
 	usort($guilds, 'relation_and_name_sort');
