@@ -55,7 +55,13 @@ function guild ($guild, $odd) {
 		case -1: $color = "#992222"; break;
 		case  1: $color = "#229922"; break;
 	}
-	return tag('tr', array('bgcolor' => ($odd ? '#00000000': '#00000033'), 'valign' => 'middle', 'style' => 'background: ' . ($odd ? '#AAA': '#999')), 
+
+	$style = array('valign' => 'middle');
+
+	if (RYZOM_IG)
+		$style['bgcolor'] = $odd ? '#00000000': '#00000033';	
+
+	return tag('tr', $style, 
 		tag('td', array('height' => '30px'), span($guild['name'], $color))
 		. td(span($guild['comment'], $color))
 		. tag('td', guild_action($guild['name']))
@@ -64,8 +70,7 @@ function guild ($guild, $odd) {
 
 function template_list ($user, $guilds, $message = null) {
 	global $_POST;
-	$c = "<h1>Relation de la guilde <b>" . $user['guild_name'] . "</b></h1>"
-	. "Bienvenue ". $user['char_name'];
+	$c = "Bienvenue ". $user['char_name'];
 	if (!is_null($message)) {
 		$c .= "<br>attention: $message";
 	}
@@ -78,7 +83,7 @@ function template_list ($user, $guilds, $message = null) {
 	. "  <input type='hidden' name='do' value='create' />"
 	. "  <input type='submit' value='Ajouter une relation' />"
 	. "</form>"
-	. "<table border=1>"
+	. "<table >"
 	. "<tr><td widtd='200px'>Nom"
 	. "</td><td width='400px'>commentaire"
 	. "</td><td width='120px'>action"

@@ -9,8 +9,10 @@ if ($user_info === false) {
 	echo "aucune information utilisateur n'a ete trouvée";
 	exit();
 }
-
+define('RYZOM_IG', $user_info['ig']);
+define('RYAPI_URL', 'http://api.ryzom.com/');
 include_once('includes/action.php');
+include_once('includes/utils.php');
 include_once('includes/render.php');
 
 $guild_info = get_guild_info ($user_info['guild_id']);
