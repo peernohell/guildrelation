@@ -52,6 +52,9 @@ class Render {
 		return "</div></body></html>";
 	}
 	private static function layout ($content) {
+		global $user_info;
+		$title = 'Relation de la guilde ' . $user_info['guild_name'];
+		$homeLink = false;
 		$c = Render::start_layout();
 		if (!RYZOM_IG) {
 			$c .= ryzom_render_www(ryzom_render_window($title, $content, $homeLink));
@@ -106,14 +109,13 @@ function ryzom_render_window($title, $content, $homeLink=false) {
 }
 
 function ryzom_render_window_begin($title, $homeLink=false) {
-	global $user_info;
 	if ($homeLink === false)
 		$homeLink = '<span style="float:right;margin-right:12px;"><a href="index.php" class="ryzom-ui-text-button">accueil</a></span>';
 
 	return '
 		<div class="ryzom-ui ryzom-ui-header">
 			<div class="ryzom-ui-tl"><div class="ryzom-ui-tr">
-				<div class="ryzom-ui-t">Relation de la guilde ' . $user_info['guild_name'] . '</div>
+				<div class="ryzom-ui-t">' . $title . '</div>
 			</div>
 		</div>
 		<div class="ryzom-ui-l"><div class="ryzom-ui-r"><div class="ryzom-ui-m">

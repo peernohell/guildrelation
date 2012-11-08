@@ -75,7 +75,7 @@ function template_list ($user, $guilds, $message = null) {
 		$c .= "<br>attention: $message";
 	}
 	$c .= "<h2>Liste des relation</h2>"
-	. "<form action='index.php' method='POST'>"
+	. "<form action='index.php' method='POST' style='width: 220px'>"
 	. "  <input type='text' name='search' value='". (isset($_POST['search']) ? $_POST['search'] : '') . "' />&nbsp;"
 	. "  <input type='submit' value='Rechercher' />"
 	. "</form><br>"
