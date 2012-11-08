@@ -17,8 +17,6 @@
  * along with ryzom_api.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-include_once('logger.php');
-include_once('dfm.php');
 
 define('SERVER', 'http://'.$_SERVER['HTTP_HOST'].$_SERVER['PHP_SELF']);
 
