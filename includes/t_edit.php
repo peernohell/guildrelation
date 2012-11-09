@@ -12,10 +12,14 @@ function template_edit ($user, $guild = null) {
 		$guild = array(
 			'name' => '',
 			'relation' => 0,
+			'faction' => '',
 			'comment' => '',
 		);
 	} else {
 		$c .= "Relation avec la guilde " . $guild['name'];
+
+		if (!isset($guild['faction']))
+				$guild['faction'] = '';
 	}
 	$c .= '
 	</h1>
@@ -37,6 +41,15 @@ function template_edit ($user, $guild = null) {
 	    <option ' . ($guild['relation'] == 0  ? 'selected="selected"' : '') . ' value="0">neutre</option>
 	    <option ' . ($guild['relation'] == -1 ? 'selected="selected"' : '') . ' value="-1">ennemie</option>
 	  </select>
+		</td></tr>
+		<tr><td>
+	  <label for="nation">nation : </label>
+		</td><td>
+		<input type="radio" name="nation" value=""       ' . ($guild['nation'] == ''        ? 'checked' : '') . ' /><span>aucune</span>
+		<input type="radio" name="nation" value="Fyros"  ' . ($guild['nation'] == 'Fyros'   ? 'checked' : '') . '/><span>Fyros</span>
+		<input type="radio" name="nation" value="Matis"  ' . ($guild['nation'] == 'Matis'   ? 'checked' : '') . '/><span>Matis</span>
+		<input type="radio" name="nation" value="Tryker" ' . ($guild['nation'] == 'Tryker'  ? 'checked' : '') . '/><span>Tryker</span>
+		<input type="radio" name="nation" value="Zoraï"  ' . ($guild['nation'] == 'Zoraï'   ? 'checked' : '') . '/><span>Zoraï</span>
 		</td></tr>
 	</table>
 	<table>

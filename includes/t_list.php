@@ -1,5 +1,16 @@
 <?php
 
+function icon ($name) {
+	switch($name) {
+		case "Fyros": return "F";
+		case "Matis": return "M";
+		case "Tryker": return "T";
+		case "Zoraï": return "Z";
+	default:
+		return 'N/A';
+	}
+}
+
 function relation_and_name_sort ($a, $b) {
 	if ($a['relation'] === $b['relation']) {
 		return strcmp($a['name'], $b['name']);
@@ -61,8 +72,10 @@ function guild ($guild, $odd) {
 	if (RYZOM_IG)
 		$style['bgcolor'] = $odd ? '#00000000': '#00000033';	
 
-	return tag('tr', $style, 
-		tag('td', array('height' => '30px'), span($guild['name'], $color))
+	return 
+		tag('tr', $style, 
+			tag('td', array('height' => '30px'), span($guild['name'], $color))
+		. td(icon(isset($guild['nation']) ? $guild['nation'] : 'NO'))
 		. td(span($guild['comment'], $color))
 		. tag('td', guild_action($guild['name']))
 	);
@@ -85,6 +98,7 @@ function template_list ($user, $guilds, $message = null) {
 	. "</form>"
 	. "<table >"
 	. "<tr><td widtd='200px'>Nom"
+	. "</td><td width='40px'>??"
 	. "</td><td width='400px'>commentaire"
 	. "</td><td width='120px'>action"
 	. "</td></tr>";

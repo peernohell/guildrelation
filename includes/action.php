@@ -6,18 +6,16 @@ class Action {
 			unset($guild_info[$_POST['original_name']]);
 		}
 		$comment = $_POST['comment'];
-		error_log("Comment: $comment");
 		// remove ending br
 		if (substr_compare($comment, '<br><br><br><br><br><br>', -24) == 0) {
-			error_log("compare found");
 			$comment = substr($comment, 0, -24);
-			error_log("Comment: $comment");
 		}
 
 		// create => create a new entry
 		$guild_info[$_POST['guild_name']] = array(
 			'name' => $_POST['guild_name'],
 			'relation' => $_POST['relation'],
+			'nation' => $_POST['nation'],
 			'comment' => $comment 
 		);
 		set_guild_info($user_info['guild_id'], $guild_info);
