@@ -12,12 +12,15 @@ function template_edit ($user, $guild = null) {
 		$guild = array(
 			'name' => '',
 			'relation' => 0,
+			'nation' => '',
 			'faction' => '',
 			'comment' => '',
 		);
 	} else {
 		$c .= "Relation avec la guilde " . $guild['name'];
 
+		if (!isset($guild['nation']))
+				$guild['nation'] = '';
 		if (!isset($guild['faction']))
 				$guild['faction'] = '';
 	}
@@ -46,10 +49,17 @@ function template_edit ($user, $guild = null) {
 	  <label for="nation">nation : </label>
 		</td><td>
 		<input type="radio" name="nation" value=""       ' . ($guild['nation'] == ''        ? 'checked' : '') . ' /><span>aucune</span>
-		<input type="radio" name="nation" value="Fyros"  ' . ($guild['nation'] == 'Fyros'   ? 'checked' : '') . '/><span>Fyros</span>
-		<input type="radio" name="nation" value="Matis"  ' . ($guild['nation'] == 'Matis'   ? 'checked' : '') . '/><span>Matis</span>
-		<input type="radio" name="nation" value="Tryker" ' . ($guild['nation'] == 'Tryker'  ? 'checked' : '') . '/><span>Tryker</span>
-		<input type="radio" name="nation" value="Zoraï"  ' . ($guild['nation'] == 'Zoraï'   ? 'checked' : '') . '/><span>Zoraï</span>
+		<input type="radio" name="nation" value="fyros"  ' . ($guild['nation'] == 'fyros'   ? 'checked' : '') . '/><span>Fyros</span>
+		<input type="radio" name="nation" value="matis"  ' . ($guild['nation'] == 'matis'   ? 'checked' : '') . '/><span>Matis</span>
+		<input type="radio" name="nation" value="tryker" ' . ($guild['nation'] == 'tryker'  ? 'checked' : '') . '/><span>Tryker</span>
+		<input type="radio" name="nation" value="zorai"  ' . ($guild['nation'] == 'zorai'   ? 'checked' : '') . '/><span>Zoraï</span>
+		</td></tr>
+		<tr><td>
+	  <label for="faction">Faction : </label>
+		</td><td>
+		<input type="radio" name="faction" value=""       ' . ($guild['faction'] == ''        ? 'checked' : '') . ' /><span>neutre</span>
+		<input type="radio" name="faction" value="kami"  ' . ($guild['faction'] == 'kami'   ? 'checked' : '') . '/><span>Kami</span>
+		<input type="radio" name="faction" value="karavan"  ' . ($guild['faction'] == 'karavan'   ? 'checked' : '') . '/><span>Karavan</span>
 		</td></tr>
 	</table>
 	<table>

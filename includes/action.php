@@ -7,7 +7,7 @@ class Action {
 		}
 		$comment = $_POST['comment'];
 		// remove ending br
-		if (substr_compare($comment, '<br><br><br><br><br><br>', -24) == 0) {
+		if (strlen($comment) > 24 && substr_compare($comment, '<br><br><br><br><br><br>', -24) == 0) {
 			$comment = substr($comment, 0, -24);
 		}
 
@@ -16,6 +16,7 @@ class Action {
 			'name' => $_POST['guild_name'],
 			'relation' => $_POST['relation'],
 			'nation' => $_POST['nation'],
+			'faction' => $_POST['faction'],
 			'comment' => $comment 
 		);
 		set_guild_info($user_info['guild_id'], $guild_info);
