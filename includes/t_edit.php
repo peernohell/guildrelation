@@ -48,18 +48,23 @@ function template_edit ($user, $guild = null) {
 		<tr><td>
 	  <label for="nation">nation : </label>
 		</td><td>
-		<input type="radio" name="nation" value=""       ' . ($guild['nation'] == ''        ? 'checked' : '') . ' /><span>aucune</span>
-		<input type="radio" name="nation" value="fyros"  ' . ($guild['nation'] == 'fyros'   ? 'checked' : '') . '/><span>Fyros</span>
-		<input type="radio" name="nation" value="matis"  ' . ($guild['nation'] == 'matis'   ? 'checked' : '') . '/><span>Matis</span>
-		<input type="radio" name="nation" value="tryker" ' . ($guild['nation'] == 'tryker'  ? 'checked' : '') . '/><span>Tryker</span>
-		<input type="radio" name="nation" value="zorai"  ' . ($guild['nation'] == 'zorai'   ? 'checked' : '') . '/><span>Zoraï</span>
+		<select name="nation">
+	  
+		<option ' . ($guild['nation'] == ''        ? 'selected="selected"' : '') . ' value=""      >aucune</option>
+		<option ' . ($guild['nation'] == 'fyros'   ? 'selected="selected"' : '') . ' value="fyros" >Fyros</option>
+		<option ' . ($guild['nation'] == 'matis'   ? 'selected="selected"' : '') . ' value="matis" >Matis</option>
+		<option ' . ($guild['nation'] == 'tryker'  ? 'selected="selected"' : '') . ' value="tryker">Tryker</option>
+		<option ' . ($guild['nation'] == 'zorai'   ? 'selected="selected"' : '') . ' value="zorai" >Zoraï</option>
+		</select>
 		</td></tr>
 		<tr><td>
 	  <label for="faction">Faction : </label>
 		</td><td>
-		<input type="radio" name="faction" value=""       ' . ($guild['faction'] == ''        ? 'checked' : '') . ' /><span>neutre</span>
-		<input type="radio" name="faction" value="kami"  ' . ($guild['faction'] == 'kami'   ? 'checked' : '') . '/><span>Kami</span>
-		<input type="radio" name="faction" value="karavan"  ' . ($guild['faction'] == 'karavan'   ? 'checked' : '') . '/><span>Karavan</span>
+		<select name="faction">
+		<option value=""        ' . ($guild['faction'] == ''        ? 'selected="selected"' : '') . ' >neutre</option>
+		<option value="kami"    ' . ($guild['faction'] == 'kami'    ? 'selected="selected"' : '') . ' >Kami</option>
+		<option value="karavan" ' . ($guild['faction'] == 'karavan' ? 'selected="selected"' : '') . ' >Karavan</option>
+		</select>
 		</td></tr>
 	</table>
 	<table>
