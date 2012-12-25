@@ -27,19 +27,20 @@ function relation_and_name_sort ($a, $b) {
 	return abs($b['relation']) - abs($a['relation']);
 }
 
-function guild_action ($name) {
+function guild_action ($guild) {
+	$id = $guild['id'];
 	return table(
 		tr(
 			tag('td', array('width' => "40px"),
 				tag('form', array('method' => "POST", 'action' => "index.php"),
-					tag('input', array('type' => "hidden" , 'name' => "guild_name", "value" => $name)) 
+					tag('input', array('type' => "hidden" , 'name' => "guild_index", "value" => $id)) 
 					. tag('input', array('type' => "hidden" , 'name' => "do", "value" => "edit"))
 					. tag('input', array('type' => "submit", "value" => "edit"))
 				)
 			) .
 			tag('td', array('width' => "40px"),
 				tag('form', array('method' => "POST", 'action' => "index.php"),
-					tag('input', array('type' => "hidden" , 'name' => "guild_name", "value" => $name)).
+					tag('input', array('type' => "hidden" , 'name' => "guild_index", "value" => $id)).
 					tag('input', array('type' => "hidden" , 'name' => "do", "value" => "remove_confirm")).
 					tag('input', array('type' => "submit", "value" => "supprimer"))
 				)
@@ -49,15 +50,17 @@ function guild_action ($name) {
 }
 
 function filter_guild (&$guilds, $filter) {
-	foreach ($guilds as $name => $info) {
-		if (strlen($filter['text']) > 0 && stripos($name, $filter['text']) === false && stripos($guilds[$name]['comment'], $filter['text']) === false) {
-			error_log('filter name: ' . $filter['text']);
-			unset($guilds[$name]);
-		} elseif (!$filter['any_nation'] && (!isset($guilds[$name]['nation']) || (isset($filter[$guilds[$name]['nation']]) && $filter[$guilds[$name]['nation']] === ''))) {
-			unset($guilds[$name]);
+	for ($i=0; $i < sizeof($guilds);) { 
+		$name = $guilds[$i]['name'];
+		if (strlen($filter['text']) > 0 && stripos($name, $filter['text']) === false && stripos($guilds[$i]['comment'], $filter['text']) === false) {
+			array_splice($guilds, $i, 1);
+		} elseif (!$filter['any_nation'] && (!isset($guilds[$i]['nation']) || (isset($filter[$guilds[$i]['nation']]) && $filter[$guilds[$i]['nation']] === ''))) {
+			array_splice($guilds, $i, 1);
 
-		} elseif (!$filter['any_faction'] && (!isset($guilds[$name]['faction']) || (isset($filter[$guilds[$name]['faction']]) && $filter[$guilds[$name]['faction']] === ''))) {
-			unset($guilds[$name]);			
+		} elseif (!$filter['any_faction'] && (!isset($guilds[$i]['faction']) || (isset($filter[$guilds[$i]['faction']]) && $filter[$guilds[$i]['faction']] === ''))) {
+			array_splice($guilds, $i, 1);
+		} else {
+			$i++;
 		}
 	}
 }
@@ -117,7 +120,8 @@ function search_form ($search) {
 	</form>';
 }
 
-function guild ($guild, $odd) {
+function guild ($guild) {
+	$odd = $guild['id'] % 2;
 	$relations = array(-1 => 'ennemie', 0 => 'neutre', 1 => 'alli&eacute;');
 	if ($guild['relation'] < -1 || $guild['relation'] > 1) {
 		$relation = 'non defini';
@@ -143,7 +147,7 @@ function guild ($guild, $odd) {
 		. td(icon(isset($guild['nation']) ? $guild['nation'] : ''))
 		. td(icon(isset($guild['faction']) ? $guild['faction'] : ''))
 		. td(span($guild['comment'], $color))
-		. tag('td', guild_action($guild['name']))
+		. tag('td', guild_action($guild))
 	);
 }
 
@@ -174,10 +178,8 @@ function template_list ($user, $guilds, $message = null) {
 
 	// sort guilds.
 	usort($guilds, 'relation_and_name_sort');
-  $i = 0;
-	foreach($guilds as $name => $value) {
-		$c .= guild($value, $i % 2);
-		$i++;
+	for($i = 0; $i < sizeof($guilds); $i++) {
+		$c .= guild($guilds[$i]);
 	}
 	return $c . "</table>";
 }

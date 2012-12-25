@@ -29,7 +29,7 @@ function template_edit ($user, $guild = null) {
 	</td></tr></table>
 	<form method="POST" action="index.php">
 	  <input type="hidden" name="do" value="save" />
-	  <input type="hidden" name="original_name" value="' . $guild['name'] .'" />
+	  <input type="hidden" name="guild_index" value="' . $guild['id'] .'" />
 	<table>
 		<tr><td>
 	  <label for="guild_name">Nom de la guilde : </label>
